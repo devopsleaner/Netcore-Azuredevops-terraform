@@ -14,6 +14,12 @@ terraform {
   
 }
 
+variable imagebuild {
+  type        = string
+  description = "build number from pipeline"
+}
+
+
 resource "azurerm_resource_group" "tf_test" {
     name = "tfmainrg"
     location = "ukwest"
@@ -30,7 +36,7 @@ resource "azurerm_container_group" "tfcg_test" {
 
     container {
         name    = "netcoreazuredevops"
-        image   = "devopsleaner/netcoreazuredevops"
+        image   = "devopsleaner/netcoreazuredevops:$(var.imagebuild}"
         cpu = "1"
         memory = "1"
 
